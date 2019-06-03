@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>@ViewBag.Title - 我的 ASP.NET 應用程式</title>
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+
+        @RenderSection("costumStyle" ,required: false)
+        
+    </head>
+    <body>
+        <ul class="nav shadow-none bg-secondary fixed-top">
+            <li class="nav-item mt-0 pr-0 pb-0 pl-0 pt-1">
+                <h3 class="p-0 text-black-50 ml-3">
+                    <a href="@Url.Action("Index", "Home" ,new { area = "" } )" class="text-body p-0 ml-3">首頁</a>
+                </h3>
+            </li>
+        </ul>
+    
+        <div class="container-fluid w-100 h-auto mw-100 p-0 ml-5 mt-4 w-100 m">
+            <div class="row">
+                @RenderSection("aside", required: false)           
+                @RenderBody()         
+            </div>
+
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - 我的 ASP.NET 應用程式</p>
+            </footer>
+        </div>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+    </body>
+</html>

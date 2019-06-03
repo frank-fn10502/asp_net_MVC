@@ -1,0 +1,106 @@
+﻿@model WebMVC.Models.ViewModels.LaptopGpuX86CPUViewModel
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+@helper create_Manu()
+{
+    var item = Model.Manufacture.ToArray();
+
+    for(int i = 0; i < item.Length; i++)
+    {
+        <li class="list-group-item list-group-item-secondary p-0 m-0 border border-dark">
+            <div class="row p-0 m-0">
+                <div class="col-md-6 border-right p-0 border-dark">
+                    <h5 class="mt-1 text-center text-black-50">@item[i++].ManuName</h5>
+                </div>
+                <div class="col-md-6 p-0 m-0">
+                    <h5 class="mt-1 text-center text-black-50">
+                        @if( i < item.Length )
+                        {
+                            @item[i].ManuName
+                        }
+                    </h5>
+                </div>
+            </div>
+        </li>
+    }
+}
+@section aside
+{
+    <div class="offset-1 col-md-2 pr-1 pl-1">
+        <ul class="list-group w-75 mw-100">
+            <li class="list-group-item p-0 list-group-item-info border border-dark">
+                <div class="row p-0 m-0">
+                    <div class="col-md-6 border-right p-0 border-dark">
+                        <h5 class="mt-1 text-center text-warning">筆電品牌</h5>
+                    </div>
+                    <div class="col-md-5 p-0 mb-0 mr-0 ml-2 mt-2">
+                        <h6 class="text-right text-success "><a href="" class="text-success">比較表</a></h6>
+                    </div>
+                </div>
+            </li>
+
+            @create_Manu()
+
+            <li class="list-group-item list-group-item-secondary pl-0 pb-0 pr-0 pt-null border border-dark">
+                <h6 class="text-right mb-0 text-success p-0 ">
+                    <a href="@Url.Action("browsing", "Home")" class="text-success">
+                        Detail...
+                    </a>
+                </h6>
+            </li>
+        </ul>
+    </div>
+}
+
+@helper product_info()
+{
+  @ProductBlock.product_info(0 ,4 ,Url ,Model)
+}
+
+
+<div class="col-md-8 pl-0">
+    <div class="container float-none ml-0 pl-0">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="m-0">筆電 </h2>
+            </div>
+        </div>
+        <div class="row pl-0 pr-0 ml-null mr-null mt-null p-1 m-0">
+               @ProductBlock.product_info(0 ,4 ,Url ,Model)            
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h5 class="text-right">
+                    @Html.ActionLink("more.....", "browsing", "Home")
+                </h5>
+            </div>
+        </div>
+    </div>
+
+    <hr class="text-black-50 font-weight-bold border border-dark mt-0" />  
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.productDetail').change(function () {
+                var MDID = $(this).val();
+
+                $.ajax({
+                    url: "@Url.Action("DisplayProductDetail")",
+                    method: "post",
+                    contentType: 'application/json',
+                    data: JSON.stringify({ mobileDeviceID: MDID }),
+                    success: function (data) {
+                        window.location.href = data;
+                    }
+                });
+            });
+        });
+    </script>
+}

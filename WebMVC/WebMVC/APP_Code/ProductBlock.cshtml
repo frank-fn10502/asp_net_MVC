@@ -1,0 +1,53 @@
+﻿@using System.Web.Mvc
+@using WebMVC.Models.ViewModels
+
+@helper images_slide(String url ,String name ,int n ,int mdNum ,UrlHelper urlHelper ,ProductBlockViewModel product)
+{
+    String urltemp = product.MobileDevice.ToArray()[mdNum].ImageURL;
+    String pos_0 = urltemp + name + "-0.jpg";
+    String pos_1 = urltemp + name + "-1.jpg";
+
+
+    String carouselId = "carousel" + n;
+    String targetId = "#carousel" + n;
+
+    <div id=@carouselId class="carousel slide article-slide" data-ride="carousel" data-interval="false">
+        <ol class="carousel-indicators">
+            <li data-target=@targetId data-slide-to="0" class="active shadow-sm bg-success"></li>
+            <li data-target=@targetId data-slide-to="1" class="active shadow-sm bg-success"></li>
+        </ol>
+
+        <div class="carousel-inner">
+            <div class="carousel-item active mw-100 w-100 mh-100 h-auto">
+                <img class="d-block border img-thumbnail border-dark h-auto mw-100 w-100 flex-fill" src="@urlHelper.Content(@pos_0)" alt="First slide">
+            </div>
+            <div class="carousel-item mw-100 mh-100 w-100 h-auto " sty>
+                <img class="d-block border img-thumbnail border-dark h-auto active  mw-100 w-100 mh-100 h-100" src="@urlHelper.Content(@pos_1)" alt="Second slide">
+            </div>
+        </div>
+    </div>
+}
+
+@helper product_info(int start ,int num ,UrlHelper urlHelper ,ProductBlockViewModel product)
+{
+    WebMVC.Models.MobileDevice[] mobileDevice = product.MobileDevice.ToArray();
+    WebMVC.Models.LapTop[] laptop = product.LapTop.ToArray();
+    WebMVC.Models.GPU[] mdGpu    = product.GPU.ToArray();
+
+    for (int i = start; i < product.MobileDevice.Count() && i < (start + num); i++)
+    {
+        <div class="col-md-3 p-0 m-0">
+            <div class="border border-dark rounded h-100 pr-2 pl-2 pb-0 pt-2 m-1 mt-0 ">
+                @images_slide(@mobileDevice[i].ImageURL ,@mobileDevice[i].MDName ,i + 1 ,i ,urlHelper ,product)
+
+                <h6 class="text-center mt-0 pt-0 align-top">@mobileDevice[i].MDName</h6>
+                <hr class="m-0 border border-dark" />
+                <h6 class="text-left text-monospace">  @laptop[i].CpuName <br /> @mdGpu[i].GPUName </h6>
+                <label class="btn btn-link w-100 h-auto mw-100 mh-100 p-0 text-right m-0">
+                    <input type="checkbox" value="@mobileDevice[i].MD_" class="productDetail" style="display: none">
+                    detail...
+                </label>
+            </div>
+        </div>
+    }
+}

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="afda737473414db381c7c6d562e1db6e" Name="Diagram1" ZoomLevel="86">
+        <EntityTypeShape EntityType="MobileDeviceSpecModel.ArmSoc" Width="1.5" PointX="8.25" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MobileDeviceSpecModel.Camera" Width="1.5" PointX="8.25" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MobileDeviceSpecModel.CameraOther" Width="1.5" PointX="10.5" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MobileDeviceSpecModel.Comment" Width="1.5" PointX="7.5" PointY="26.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MobileDeviceSpecModel.GPU" Width="1.5" PointX="5.25" PointY="20.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MobileDeviceSpecModel.LapTop" Width="1.5" PointX="10.5" PointY="26.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MobileDeviceSpecModel.LapTopGpu" Width="1.5" PointX="7.5" PointY="22.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MobileDeviceSpecModel.Manufacture" Width="1.5" PointX="0.75" PointY="19" IsExpanded="true" />
+        <EntityTypeShape EntityType="MobileDeviceSpecModel.ManufacturePosition" Width="1.5" PointX="3" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MobileDeviceSpecModel.Member" Width="1.5" PointX="5.25" PointY="32.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MobileDeviceSpecModel.MobileDevice" Width="1.5" PointX="5.25" PointY="24.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MobileDeviceSpecModel.MobileDeviceCC" Width="1.5" PointX="7.5" PointY="30.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MobileDeviceSpecModel.MobileDeviceColor" Width="1.5" PointX="7.5" PointY="33.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MobileDeviceSpecModel.MobileDeviceMutimedia" Width="1.5" PointX="7.5" PointY="35.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MobileDeviceSpecModel.MobileDeviceOther" Width="1.5" PointX="7.5" PointY="37.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MobileDeviceSpecModel.MobileDeviceReview" Width="1.5" PointX="7.5" PointY="40.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MobileDeviceSpecModel.PhoneAndTablet" Width="1.5" PointX="10.5" PointY="22.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MobileDeviceSpecModel.PTSensor" Width="1.5" PointX="7.5" PointY="46.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MobileDeviceSpecModel.Screen" Width="1.5" PointX="3" PointY="24.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MobileDeviceSpecModel.Series" Width="1.5" PointX="3" PointY="33.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MobileDeviceSpecModel.SMD" Width="1.5" PointX="10.5" PointY="30.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MobileDeviceSpecModel.Storage" Width="1.5" PointX="3" PointY="28" IsExpanded="true" />
+        <EntityTypeShape EntityType="MobileDeviceSpecModel.Store" Width="1.5" PointX="8.25" PointY="42.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MobileDeviceSpecModel.StorePosition" Width="1.5" PointX="10.5" PointY="42.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MobileDeviceSpecModel.x86CPU" Width="1.5" PointX="8.25" PointY="11.25" IsExpanded="true" />
+        <AssociationConnector Association="MobileDeviceSpecModel.FK__PhoneAndTablet__1AD3FDA4" ManuallyRouted="false" />
+        <AssociationConnector Association="MobileDeviceSpecModel.FK__CameraOth__Camer__17036CC0" ManuallyRouted="false" />
+        <AssociationConnector Association="MobileDeviceSpecModel.FK__PhoneAndT__Camer__1BC821DD" ManuallyRouted="false" />
+        <AssociationConnector Association="MobileDeviceSpecModel.FK__Comment__M___32E0915F" ManuallyRouted="false" />
+        <AssociationConnector Association="MobileDeviceSpecModel.FK__Comment__MD___31EC6D26" ManuallyRouted="false" />
+        <AssociationConnector Association="MobileDeviceSpecModel.FK__Comment__RC___30F848ED" ManuallyRouted="false" />
+        <AssociationConnector Association="MobileDeviceSpecModel.FK__LapTopGpu__Gpu___0B91BA14" ManuallyRouted="false" />
+        <AssociationConnector Association="MobileDeviceSpecModel.FK__LapTop__MD___02FC7413" ManuallyRouted="false" />
+        <AssociationConnector Association="MobileDeviceSpecModel.FK_LapTop_x86CPU" ManuallyRouted="false" />
+        <AssociationConnector Association="MobileDeviceSpecModel.FK__LapTopGpu__MD___0A9D95DB" ManuallyRouted="false" />
+        <AssociationConnector Association="MobileDeviceSpecModel.FK__Manufactu__ManuN__0BC6C43E" ManuallyRouted="false" />
+        <AssociationConnector Association="MobileDeviceSpecModel.FK__MobileDev__ManuN__21B6055D" ManuallyRouted="false" />
+        <AssociationConnector Association="MobileDeviceSpecModel.FK__Series__ManuName__145C0A3F" ManuallyRouted="false" />
+        <AssociationConnector Association="MobileDeviceSpecModel.FK__MobileDev__Scree__20C1E124" ManuallyRouted="false" />
+        <AssociationConnector Association="MobileDeviceSpecModel.FK__MobileDev__Serie__22AA2996" ManuallyRouted="false" />
+        <AssociationConnector Association="MobileDeviceSpecModel.FK__MobileDevic__MD___398D8EEE" ManuallyRouted="false" />
+        <AssociationConnector Association="MobileDeviceSpecModel.FK__MobileDevic__MD___3C69FB99" ManuallyRouted="false" />
+        <AssociationConnector Association="MobileDeviceSpecModel.FK__MobileDevic__MD___3F466844" ManuallyRouted="false" />
+        <AssociationConnector Association="MobileDeviceSpecModel.FK__MobileDevic__MD___4222D4EF" ManuallyRouted="false" />
+        <AssociationConnector Association="MobileDeviceSpecModel.FK__MobileDevic__MD___44FF419A" ManuallyRouted="false" />
+        <AssociationConnector Association="MobileDeviceSpecModel.FK__PhoneAndTab__MD___19DFD96B" ManuallyRouted="false" />
+        <AssociationConnector Association="MobileDeviceSpecModel.FK__PTSensor__MD___1EA48E88" ManuallyRouted="false" />
+        <AssociationConnector Association="MobileDeviceSpecModel.FK__SMD__MD___36B12243" ManuallyRouted="false" />
+        <AssociationConnector Association="MobileDeviceSpecModel.FK__SMD__StoreName__35BCFE0A" ManuallyRouted="false" />
+        <AssociationConnector Association="MobileDeviceSpecModel.FK__StorePosi__Store__117F9D94" ManuallyRouted="false" />
+        <AssociationConnector Association="MobileDeviceSpecModel.LapTopStorage" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,190 @@
+﻿@using WebMVC.Models.ViewModels
+@model WebMVC.Models.ViewModels.MoblieDeviceBrowsingViewModel
+
+@{
+    ViewBag.Title = "browsing";
+}
+@section costumStyle
+{
+    <style>
+        .page {
+            display: none
+        }
+
+        .page-active {
+            display: block
+        }
+    </style>
+}
+
+@helper create_CollapseInfo(int n)
+{   
+    String value = "";
+    String viewData = "";
+    <li >                      
+        @switch (n)
+        {
+        case 0:
+            foreach (var item in Model.ManufactureSelector)
+            {
+                value = MoblieDeviceBrowsingViewModel.ulTitleStr[0] + " " + item.ManuName;
+                <label class="btn btn-outline-secondary mt-2 ml-2" id="@item.ManuName">
+                    <input type="checkbox" value="@value" class="checkboxProduct">
+                    @item.ManuName
+                </label> 
+            }
+            break;
+        case 1:
+            @*2*textbox(xx以上 ~ xxx以下)*@
+            break;
+        case 2:
+            foreach (var item in Model.X86CPUSelector)
+            {
+                value = MoblieDeviceBrowsingViewModel.ulTitleStr[2] + " " + item.CpuName;
+                <label class="btn btn-outline-secondary mt-2 ml-2" id="@item.CpuName">
+                    <input type="checkbox" value="@value" class="checkboxProduct">
+                    @item.CpuName
+                </label>
+            }
+            break;
+        case 3:
+            foreach (var item in Model.GPUSelector)
+            {
+                value = MoblieDeviceBrowsingViewModel.ulTitleStr[3] + " " + item.GPUName;
+                <label class="btn btn-outline-secondary mt-2 ml-2" id="@item.GPUName">
+                    <input type="checkbox" value="@value" class="checkboxProduct">
+                    @item.GPUName
+                </label>
+            }
+            break;
+        case 4:
+            foreach (var item in Model.RamSelector)
+            {
+                value = MoblieDeviceBrowsingViewModel.ulTitleStr[4] + " " + item;
+                <label class="btn btn-outline-secondary mt-2 ml-2" id="@item">
+                    <input type="checkbox" value="@value" class="checkboxProduct">
+                    @item
+                </label>
+            }
+            break;
+        case 5:
+            foreach (var item in Model.SSDSelector)
+            {
+                value = MoblieDeviceBrowsingViewModel.ulTitleStr[5] + " " + item.Storage_;
+                viewData = item.StorageType + " " + @item.StoragePort + " " + item.StorageCapacity;
+                <label class="btn btn-outline-secondary mt-2 ml-2" id="@item">
+                    <input type="checkbox" value="@value" class="checkboxProduct">
+                    @viewData
+                </label>
+            }
+            break;
+        case 6:
+            foreach (var item in Model.HDDSelector)
+            {
+                value = MoblieDeviceBrowsingViewModel.ulTitleStr[6] + " " + item.Storage_;
+                viewData = item.StorageType + " " + @item.StoragePort + " " + item.StorageCapacity;
+                <label class="btn btn-outline-secondary mt-2 ml-2" id="@item">
+                    <input type="checkbox" value="@value" class="checkboxProduct">
+                    @viewData
+                </label>
+            }
+            break;
+        }
+    </li>
+}
+@helper create_Manu()
+{
+    String collapse = "collapse";
+
+    <div class="panel-group border border-dark rounded m-0 p-0 pb-2" id="accordion">
+        @for (int i = 0 ; i < MoblieDeviceBrowsingViewModel.ulTitleStr.Length ; i++ )
+        {
+            <div class="panel panel-default m-0 p-0">
+                <div class="panel-heading">
+                    <h5 class="panel-title m-0 p-0 mt-1 mb-1">
+                        <a class="text-black-50 font-weight-bold" data-toggle="collapse" data-parent="#accordion" href = @('#' + collapse + i)>                         
+                            @MoblieDeviceBrowsingViewModel.ulTitleStr[i]
+                        </a>
+                    </h5>                   
+                </div>
+                @if ( i != MoblieDeviceBrowsingViewModel.ulTitleStr.Length-1)
+                {
+                    <hr class="m-0"/>
+                }               
+                <div id= @(collapse+ i)  class="panel-collapse collapse p-0 m-0 mb-2">
+                    <hr class="m-0"/>
+                    <ul class="text-left m-0 p-0" style="list-style-type : none">
+                        @create_CollapseInfo(i)
+                    </ul>
+                </div>
+            </div>
+            if (i != MoblieDeviceBrowsingViewModel.ulTitleStr.Length - 1)
+            {
+                <hr class="mt-0 mb-2" />
+            }
+        }
+    </div>
+}
+@section aside
+{
+    <div class="offset-1 col-md-3 ml-2">
+        <div class="list-group p-0 mr-0 mb-0 ml-3 mr-3 w-auto">
+           @create_Manu()
+        </div>
+    </div>
+}
+
+<div id="productBrowsingArea" class="col-md-7 p-0 align-items-center">
+    @{ Html.RenderPartial("_BrowsingProductPartial"); }
+
+    <div class="row mt-4">
+        <div class="offset-3 scol-md-3 p-0">
+            <ul id="pagination-demo" class="pagination pagination-sm m-0">
+                <!-- <li class="page-item"><a href="#" class="page-link">1</a></li> -->
+            </ul>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="@Url.Content("~/scripts/jquery.twbsPagination.js")"></script>
+    <script src="@Url.Action("PaginationSeg", "Home")" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.checkboxProduct').change(function () {
+                var val = [];
+                $(':checkbox:checked').each(function (i)
+                {
+                    val[i] = $(this).val();
+                });
+
+                $.ajax({
+                    url: "@Url.Action("_BrowsingProductPartial")",
+                    method: "post",
+                    contentType: 'application/json',
+                    data: JSON.stringify({ specStr: val }) ,
+                    success : function(data)
+                    {
+                        $('#productBrowsingArea').html(data);
+                    }
+                });
+            });
+
+            $('.productDetail').change(function () {
+                var MDID = $(this).val();
+
+                $.ajax({
+                    url: "@Url.Action("DisplayProductDetail")",
+                    method: "post",
+                    contentType: 'application/json',
+                    data: JSON.stringify({ mobileDeviceID: MDID }),
+                    success: function (data) {
+                        window.location.href = data;
+                    }
+                });
+            });
+        }); 
+    </script>
+}

@@ -1,0 +1,29 @@
+﻿@model WebMVC.Models.ViewModels.MoblieDeviceBrowsingViewModel
+
+@helper createProducts()
+{
+    int remainNum = Model.MobileDevice.Count();
+    String pageId;
+
+    for (int i = 1 ; remainNum > 0 ; remainNum -= Model.pageProductNum, i++)
+    {
+        pageId = "page" + i;
+
+        <div id="@pageId" class="page p-0 m-0">
+            <div class="row p-0 m-0">
+                @ProductBlock.product_info( (i - 1) * Model.pageProductNum ,Model.pageProductNum ,Url ,Model)
+            </div>
+        </div>
+    }
+}
+
+@createProducts()
+<div class="row mt-4">
+    <div class="offset-3 scol-md-3 p-0">
+        <ul id="pagination-demo" class="pagination pagination-sm m-0">
+            <!-- <li class="page-item"><a href="#" class="page-link">1</a></li> -->
+        </ul>
+    </div>
+</div>
+
+<script src="@Url.Action("PaginationSeg", "Home")" type="text/javascript"></script>

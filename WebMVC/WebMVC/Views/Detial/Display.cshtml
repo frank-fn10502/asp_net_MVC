@@ -1,0 +1,250 @@
+﻿@model WebMVC.Models.ViewModels.AllLaptopDataViewModel
+@{
+    ViewBag.Title = "Display";
+}
+
+@section costumStyle
+{
+    <style>
+        .carousel-indicators li {
+            width: 200px;
+            height: 10px;
+            border-radius: 100%;
+        }
+
+        .carousel-indicators {
+            bottom: -10px;
+        }
+        .detail-area {
+            bottom: -50px;
+        }
+    </style>
+}
+@helper createCarouselInner()
+{
+    String defaultPath = Model.MobileDevice.ImageURL + Model.MobileDevice.MDName;
+    String imageURL;
+    <div class="carousel-inner border border-dark rounded p-0 w-75 mw-100 h-auto ml-5 mt-0 mb-0 mr-5" role="listbox">
+        @for (int i = 0; i < 4; i++)
+        {
+            imageURL = defaultPath + "-" + i.ToString() + ".jpg";
+            if( i == 0)
+            {
+                <div class="carousel-item active mw-100 w-100 h-auto mh-100 mb-0 pb-0 p-0 m-0">
+                    <img class="d-block p-1 border border-dark rounded test-images w-100 mw-100 h-auto m-0" src="@Url.Content(imageURL)" alt="WTF IS GOING">
+                </div>
+                continue;
+            }
+            <div class="carousel-item mw-100 w-100 h-auto mh-100 mb-0 pb-0 p-0 m-0">
+                <img class="d-block p-1 border border-dark rounded test-images w-100 mw-100 h-auto m-0" src="@Url.Content(imageURL)" alt="WTF IS GOING">
+            </div>
+        }
+    </div>
+}
+@helper createCarouseIndicator()
+{
+    String defaultPath = Model.MobileDevice.ImageURL + Model.MobileDevice.MDName;
+    String imageURL;
+
+    <ol class="carousel-indicators">
+        @for(int i = 0; i < 4; i++)
+        {
+            imageURL = defaultPath + "-" + i.ToString() + ".jpg";
+            <li data-target="#carousel-thumb" data-slide-to="@i" class="active">
+                <img class="d-block img-fluid clearfix border border-dark rounded h-auto w-75 ml-3 mr-3 mt-0 mb-0 p-0 p-2 p-1" src="@Url.Content(imageURL)">
+            </li>
+        }
+    </ol>
+}
+@helper setProductPictures()
+{
+    <div id="carousel-thumb" class="carousel slide carousel-thumbnails w-100 mw-100 pl-3 pb-5 p-3 pb-2 text-center mb-4" data-ride="carousel" data-interval="false">
+        @createCarouselInner()
+        @createCarouseIndicator()
+    </div>
+}
+
+@helper setSimpleDetail()
+{
+    <h2 class="text-center">@Model.MobileDevice.MDName</h2><!-- GS65 Stealth Thin 8RE-029TW-->
+    <ul>
+        @for (int i = 0; i < Model.getDetail().simpleDetailItemNum; i++)
+        {
+            <li>
+                <h6>@Html.Raw( Model.getDetail().simpleDetailStr[i] )</h6>
+            </li>
+        }
+    </ul>
+}
+
+
+@helper setFullDetailItem()
+{
+    for(int i = 0 ; i < Model.getDetail().fullDetailItemNum ; i++)
+    {
+        <li class="ml-3">
+            <div class="row">
+                <div class="col-md-2 p-0 border-right border-dark">
+                    <h4 class="m-0">@Model.getDetail().fullDetailTitle[i]</h4>
+                </div>
+                <div class="col-md-10 p-1">
+                    @Html.Raw( Model.getDetail().fullDetailStr[i] )
+                </div>
+            </div>
+        </li>
+        if( i != Model.getDetail().fullDetailItemNum -1)
+        {
+            <hr class="m-0 mt-1 mb-1 border border-dark bg-dark"/>
+        }       
+    }
+}
+@helper setFullDetail()
+{
+    <ol class="border border-dark rounded m-0 pl-0" style="list-style-type : none">
+        @setFullDetailItem()
+    </ol>
+}
+
+@helper setReviewDetailItem_Article()
+{
+    for (int i = 0; i < Model.MobileDeviceReview.Count(); i++)
+    {
+        if( Model.MobileDeviceReview.ToArray()[i].ReviewType.ToLower() == "article")
+        {
+            <li class="ml-3">
+                <div class="row">
+                    <div class="col-md-12 p-1">
+                            @Model.MobileDeviceReview.ToArray()[i].ReviewName (@Model.MobileDeviceReview.ToArray()[i].ReviewMainSite): 
+                        <br/>
+                        <a href="@Model.MobileDeviceReview.ToArray()[i].ReviewURL">@Model.MobileDeviceReview.ToArray()[i].ReviewURL</a>
+                    </div>
+                </div>
+            </li>
+            if (i != Model.MobileDeviceReview.Count() - 1)
+            {
+               <hr class="m-0 mt-1 mb-1 border border-dark bg-dark" />
+            }
+        }
+    }
+}
+@helper setReviewDetailItem_Video()
+{
+    for (int i = 0; i < Model.MobileDeviceReview.Count(); i++)
+    {
+        if( Model.MobileDeviceReview.ToArray()[i].ReviewType.ToLower() == "video")
+        {
+            <li class="ml-3">
+                <div class="row">
+                    <div class="col-md-12 p-1">
+                            @Model.MobileDeviceReview.ToArray()[i].ReviewName (@Model.MobileDeviceReview.ToArray()[i].ReviewMainSite):
+                        <br />
+                        <a href="@Model.MobileDeviceReview.ToArray()[i].ReviewURL">@Model.MobileDeviceReview.ToArray()[i].ReviewURL</a>
+                    </div>
+                </div>
+            </li>
+            if (i != Model.MobileDeviceReview.Count() - 1)
+            {
+               <hr class="m-0 mt-1 mb-1 border border-dark bg-dark" />
+            }
+        }
+    }
+}
+
+@helper setReviewDetail()
+{
+    <ol class="border border-dark rounded m-0 pl-0" style="list-style-type : none">
+        <li>
+            文章
+        </li>
+        @setReviewDetailItem_Article()
+    </ol>
+    <ol class="border border-dark rounded m-0 mt-3 pl-0" style="list-style-type : none">
+        <li>
+            影片
+        </li>
+        @setReviewDetailItem_Video()
+    </ol>
+}
+
+@helper setBuyingDetailItem()
+{
+    for (int i = 0; i < Model.SMD.Count(); i++)
+    {
+            <li class="ml-3">
+                <div class="row">
+                    <div class="col-md-12 p-1">
+                        @Model.SMD.ToArray()[i].StoreName (  @Model.SMD.ToArray()[i].SMDPrice ):  
+                        <a href="@Model.SMD.ToArray()[i].SMDURL">@Model.SMD.ToArray()[i].SMDURL</a>
+                    </div>
+                </div>
+            </li>
+        if (i != Model.SMD.Count() - 1)
+        {
+            <hr class="m-0 mt-1 mb-1 border border-dark bg-dark" />
+        }
+    }
+}
+@helper setBuyingDetail()
+{
+    <ol class="border border-dark rounded m-0 pl-0" style="list-style-type : none">
+        @setBuyingDetailItem()
+    </ol>
+}
+
+<div class="container">
+    <div class="row mb-5">
+        <div class="col-md-5">          
+            @setProductPictures()         
+        </div>
+        <div class="col-md-7 p-0 m-0 mb-5">
+            @setSimpleDetail()
+        </div>
+    </div>
+    <div class="row detail-area mt-5">
+        <div class="col-md-12">
+            <div class="panel panel-default m-0 p-0">
+                <div class="panel-heading">
+                    <h5 class="panel-title m-0 p-0 mb-1">
+                        <a class="text-black-50 font-weight-bold" data-toggle="collapse" data-parent="#accordion" href="#collapseExample1">
+                            詳細資料
+                        </a> 
+                    </h5>
+                    <hr class="mt-0 mb-3" />
+                </div>
+                <div class="panel-collapse collapse p-0 m-0 mb-2" id="collapseExample1">
+                    <div class="m-0 p-0">
+                        @setFullDetail()
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-heading">
+                <h5 class="panel-title m-0 p-0 mb-2">
+                    <a class="text-black-50 font-weight-bold" data-toggle="collapse" data-parent="#accordion" href="#collapseExample2">
+                        評論 & 測試
+                    </a> 
+                </h5>
+                <hr class="mt-0 mb-3" />
+            </div>
+            <div class="panel-collapse collapse p-0 m-0 mb-2" id="collapseExample2">
+                <div class="">
+                    @setReviewDetail()
+                </div>
+            </div>
+
+            <div class="panel-heading">
+                <h5 class="panel-title m-0 p-0 mb-2">
+                    <a class="text-black-50 font-weight-bold" data-toggle="collapse" data-parent="#accordion" href="#collapseExample3">
+                        哪裡買
+                    </a>
+                </h5>
+                <hr class="mt-0 mb-3" />
+            </div>
+            <div class="panel-collapse collapse p-0 m-0 mb-2" id="collapseExample3">
+                <div class="">
+                    @setBuyingDetail()
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
